@@ -3,9 +3,18 @@ import Markets from '../views/Markets/index.vue';
 
 const routes = [
     {
+      path: '/',
+      redirect: '/Markets'
+    },
+    {
       path: '/Markets',
       name: 'Markets',
       component: Markets
+    },
+    {
+      path: '/Setting',
+      name: 'Setting',
+      component: () => import(/* webpackChunkName: "Setting" */ '@/views/Setting/index.vue')
     }
   // {
   //   path: '/about',
