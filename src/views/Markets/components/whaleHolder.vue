@@ -61,7 +61,7 @@
           <el-table-column prop="suggestion" label="Suggestion" sortable />
         </el-table>
         <!-- view more -->
-        <div class="view-more-box">{{ `View More` }}</div>
+        <div class="view-more-box" @click="handleToViewMore">{{ `View More` }}</div>
       </div>
     </div>
   </div>
@@ -69,7 +69,9 @@
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
-const mintChart = ref(null),
+import { useRouter } from 'vue-router';
+const router = useRouter(),
+  mintChart = ref(null),
   { proxy } = getCurrentInstance(),
   tableData = [
     {
@@ -137,7 +139,12 @@ const mintChart = ref(null),
       mint: 'Tom',
       suggestion: 12300
     }
-  ];
+  ],
+  handleToViewMore = () => {
+    router.push({
+      path: '/ViewMore'
+    });
+  };
 
 function initMyChart() {
   const myChart = proxy.$echarts.init(mintChart.value),

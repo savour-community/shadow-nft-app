@@ -9,11 +9,11 @@
               </div>
           </div>
           <ul class="nav-list">
-              <li class="nav-item"><a href="#" class="nav-word activted">Markets</a></li>
+              <li class="nav-item"><router-link to="/Markets" class="nav-word activted">Markets</router-link></li>
               <li class="nav-item"><a href="#" class="nav-word">Collection</a></li>
               <li class="nav-item"><a href="#" class="nav-word">Docs</a></li>
               <li class="nav-item"><a href="#" class="nav-word">Open API</a></li>
-              <li class="nav-item"><a href="#" class="nav-word">Setting</a></li>
+              <li class="nav-item"><router-link to="/Setting" class="nav-word">Setting</router-link></li>
           </ul>
       </div>
   </div>

@@ -175,14 +175,16 @@
         </el-tab-pane>
       </el-tabs>
       <!-- view more -->
-      <div class="view-more-box">{{ `View More ${activeTab}` }}</div>
+      <div class="view-more-box" @click="handleToViewMore">{{ `View More ${activeTab}` }}</div>
     </div>
   </div>
 </template>
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
-const activeTab = ref('hotCollections'),
+import { useRouter } from 'vue-router';
+const router = useRouter(),
+  activeTab = ref('hotCollections'),
   mintChart = ref(null),
   { proxy } = getCurrentInstance(),
   tableData = [
@@ -251,7 +253,12 @@ const activeTab = ref('hotCollections'),
       mint: 'Tom',
       suggestion: 12300
     }
-  ];
+  ],
+  handleToViewMore = () => {
+    router.push({
+      path: '/ViewMore'
+    });
+  };
 
 function initMyChart() {
   const myChart = proxy.$echarts.init(mintChart.value),

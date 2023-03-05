@@ -12,6 +12,11 @@ const routes = [
       component: Markets
     },
     {
+      path: '/ViewMore',
+      name: 'ViewMore',
+      component: () => import(/* webpackChunkName: "Setting" */ '@/views/ViewMore/index.vue')
+    },
+    {
       path: '/Setting',
       name: 'Setting',
       component: () => import(/* webpackChunkName: "Setting" */ '@/views/Setting/index.vue')
