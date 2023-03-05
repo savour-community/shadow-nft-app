@@ -56,7 +56,8 @@ const shadowTotalChart = ref([]),
           {
             data: [150, 230, 224, 218, 135, 147, 260],
             type: 'line',
-            symbol: 'none'
+            symbol: 'none',
+            smooth: true
             // areaStyle: {
             //   color: {
             //     type: 'linear',

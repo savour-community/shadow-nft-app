@@ -3,6 +3,7 @@
     <div class="shadow-nft-markets-container">
       <banner />
       <total-list />
+      <!-- <score/> -->
       <tabs-table />
     </div>
   </default-layout>
@@ -13,6 +14,7 @@ import DefaultLayout from '@/layout/defaultLayout.vue';
 import Banner from './components/banner.vue';
 import TotalList from './components/totalList.vue';
 import TabsTable from './components/tabsTable.vue';
+// import Score from './components/score.vue';
 </script>
 
 <style lang="scss" scoped>

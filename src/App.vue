@@ -18,5 +18,6 @@
     background-image: url('~@/assets/img/index_bg.png');
     background-repeat: no-repeat;
     background-position: top center;
+    background-size: 100%;
   }
 </style>
