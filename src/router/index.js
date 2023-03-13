@@ -12,6 +12,16 @@ const routes = [
       component: Markets
     },
     {
+      path: '/Collection',
+      name: 'Collection',
+      component: () => import(/* webpackChunkName: "Setting" */ '@/views/Collection/index.vue')
+    },
+    {
+      path: '/CollectionDetail',
+      name: 'CollectionDetail',
+      component: () => import(/* webpackChunkName: "Setting" */ '@/views/Collection/detail.vue')
+    },
+    {
       path: '/ViewMore',
       name: 'ViewMore',
       component: () => import(/* webpackChunkName: "Setting" */ '@/views/ViewMore/index.vue')
