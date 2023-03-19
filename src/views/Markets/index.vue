@@ -11,12 +11,21 @@
 </template>
 
 <script setup>
+import { onMounted } from 'vue';
 import DefaultLayout from '@/layout/defaultLayout.vue';
 import Banner from './components/banner.vue';
 import TotalList from './components/totalList.vue';
 import TabsTable from './components/tabsTable.vue';
 import WhaleHolder from './components/whaleHolder.vue';
 import WhatShadowScore from '@/components/whatShadowScore.vue';
+import { getIndex } from '@/assets/js/http.js';
+
+onMounted(() => {
+  const res = getIndex();
+
+  console.log(res, 'getIndexgetIndexgetIndex');
+});
+
 </script>
 
 <style lang="scss" scoped>
