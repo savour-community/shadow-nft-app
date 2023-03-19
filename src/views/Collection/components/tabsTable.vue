@@ -22,7 +22,7 @@ import Nfts from './nfts.vue';
 import whaleHolders from './whaleHolders.vue';
 import { ref } from 'vue';
 
-const activeTab = ref('nfts');
+const activeTab = ref('overview');
 
 </script>
 
