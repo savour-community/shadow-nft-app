@@ -17,7 +17,7 @@
                     <div class="overview-content-list">
                         <div class="overview-content-item" v-for="item in options" :key="item.title">
                             <div class="left">{{item.title}}</div>
-                            <div class="right">{{item.value}}</div> 
+                            <div class="right">{{item.value}}</div>
                         </div>
                     </div>
                 </div>
@@ -54,94 +54,94 @@
         </div>
     </default-layout>
 </template>
-  
+
 <script setup>
 import { ref } from 'vue';
 import DefaultLayout from '@/layout/defaultLayout.vue';
 import PriceCard from './components/priceCard.vue';
-const  tableData = [
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  }
-];
+const tableData = [
+    {
+      address: '0x8955...f86b',
+      tokenValue: 1000,
+      owned: 200,
+      realizedPnL: 'Tom',
+      label: 12300
+    },
+    {
+      address: '0x8955...f86b',
+      tokenValue: 1000,
+      owned: 200,
+      realizedPnL: 'Tom',
+      label: 12300
+    },
+    {
+      address: '0x8955...f86b',
+      tokenValue: 1000,
+      owned: 200,
+      realizedPnL: 'Tom',
+      label: 12300
+    },
+    {
+      address: '0x8955...f86b',
+      tokenValue: 1000,
+      owned: 200,
+      realizedPnL: 'Tom',
+      label: 12300
+    },
+    {
+      address: '0x8955...f86b',
+      tokenValue: 1000,
+      owned: 200,
+      realizedPnL: 'Tom',
+      label: 12300
+    }
+  ],
 
-const priceCardList = ref([{
-  title: 'Price',
-  price: '1000',
-  percent: '2.48%'
-},{
-  title: 'Total Holders',
-  price: '12,121',
-  percent: '2.48%'
-},{
-  title: 'Total Whale Holders',
-  price: '12,121',
-  percent: '2.48%'
-},{
-  title: 'Total TXNs',
-  price: '2.68',
-  percent: '2.48%'
-}
-]);
-const options = [
-  {
-    title: 'contract adress',
-    value: '0x000000000000000000000'
+  priceCardList = ref([{
+    title: 'Price',
+    price: '1000',
+    percent: '2.48%'
   },{
-    title: 'tokenId',
-    value: '384111112323233'
+    title: 'Total Holders',
+    price: '12,121',
+    percent: '2.48%'
   },{
-    title: 'Content URL',
-    value: 'QmPBS8UwZJfMDftLSxB946PgsDb1FQwnVcCYuXfWoAyxqSView'
+    title: 'Total Whale Holders',
+    price: '12,121',
+    percent: '2.48%'
   },{
-    title: 'Minting Hash',
-    value: '0x5346a5e70a8cc2a4deb85b0ea088a45e9131db7a499fe0bb755c5440a5f57d37'
-  },{
-    title: 'Minting Date',
-    value: '2023-01-30 12:30:47'
-  },{
-    title: '其他字段',
-    value: '2023-01-30 12:30:47'
-  },{
-    title: '其他字段',
-    value: '2023-01-30 12:30:47'
+    title: 'Total TXNs',
+    price: '2.68',
+    percent: '2.48%'
   }
-];
+  ]),
+  options = [
+    {
+      title: 'contract adress',
+      value: '0x000000000000000000000'
+    },{
+      title: 'tokenId',
+      value: '384111112323233'
+    },{
+      title: 'Content URL',
+      value: 'QmPBS8UwZJfMDftLSxB946PgsDb1FQwnVcCYuXfWoAyxqSView'
+    },{
+      title: 'Minting Hash',
+      value: '0x5346a5e70a8cc2a4deb85b0ea088a45e9131db7a499fe0bb755c5440a5f57d37'
+    },{
+      title: 'Minting Date',
+      value: '2023-01-30 12:30:47'
+    },{
+      title: '其他字段',
+      value: '2023-01-30 12:30:47'
+    },{
+      title: '其他字段',
+      value: '2023-01-30 12:30:47'
+    }
+  ];
 
 </script>
-  
+
   <style lang="scss" scoped>
   .flex{
     display: flex;

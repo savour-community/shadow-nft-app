@@ -5,7 +5,7 @@
         <el-tab-pane label="Hot Collections" name="hotCollections">
           <!-- Hot Collections Table -->
           <el-table
-            :data="tableData"
+            :data="hotCollections"
             :default-sort="{ prop: 'date', order: 'descending' }"
             style="width: 100%"
           >
@@ -20,12 +20,12 @@
                 <div class="shadow-score-box">
                   <img
                     class="shadow-score-logo"
-                    :src="row.shadowScore.logo"
+                    :src="row.image"
                     alt="logo"
                   />
                   <div class="shadow-score-info-box">
                     <p class="name">
-                      <span>{{ row.shadowScore.name }}</span
+                      <span>{{ row.name }}</span
                       ><span
                         ><img
                           src="https://dummyimage.com/12x12/eae0d0"
@@ -34,7 +34,7 @@
                     </p>
                     <p class="holder">
                       {{
-                        `holder:${row.shadowScore.holder} / whale address:${row.shadowScore.whaleAddress}`
+                        `holder:${row.whale_holder} / whale address:${row?.shadowScore?.whaleAddress}`
                       }}
                     </p>
                     <el-rate :model-value="3.5" disabled text-color="#fffff" />
@@ -42,17 +42,17 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="vllume" label="24H Vllume(USDT)" sortable>
+            <el-table-column prop="volume" label="24H Vllume(USDT)" sortable>
               <template #default="{ row }">
                 <div class="vllume-box">
-                  <p>{{ row.vllume }}</p>
+                  <p>{{ row.volume }}</p>
                   <span
                     >0.9%<img src="https://dummyimage.com/8x12/52CCA3"
                   /></span>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="price" label="Price" sortable />
+            <el-table-column prop="floor_price" label="Price" sortable />
             <el-table-column prop="mint" label="Mint" sortable>
               <div class="mint-chart" ref="mintChart"></div>
             </el-table-column>
@@ -139,7 +139,7 @@
                   />
                   <div class="shadow-score-info-box">
                     <p class="name">
-                      <span>{{ row.shadowScore.name }}</span
+                      <span>{{ row.name }}</span
                       ><span
                         ><img
                           src="https://dummyimage.com/12x12/eae0d0"
@@ -148,7 +148,7 @@
                     </p>
                     <p class="holder">
                       {{
-                        `holder:${row.shadowScore.holder} / whale address:${row.shadowScore.whaleAddress}`
+                        `holder:${row.whale_holder} / whale address:${row.shadowScore.whaleAddress}`
                       }}
                     </p>
                     <el-rate :model-value="3.5" disabled text-color="#fffff" />
@@ -181,11 +181,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance, defineProps } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter(),
   activeTab = ref('hotCollections'),
   mintChart = ref(null),
+  { hotCollections } = defineProps({
+    hotCollections: Array
+  }),
   { proxy } = getCurrentInstance(),
   tableData = [
     {
