@@ -1,4 +1,4 @@
-// import http from './api.js';
+import http from './api.js';
 
 export const getIndex = params => {
 //   http.post('/api/v1/GetIndex', params);
@@ -143,4 +143,9 @@ export const getIndex = params => {
       }
     }
   });
+};
+
+export const getHotCollectionDetail = params => {
+  // return http.get('/api/v1/GetIndex', params);
+  return http.post('/api/v1/GetHotCollectionDetail', params);
 };
