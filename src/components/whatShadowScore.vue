@@ -27,7 +27,7 @@
 import { ref, onMounted, getCurrentInstance } from 'vue';
 
 let data = [80, 70, 30, 85, 25],
-  indicatorname = ['政治品德修养', '社会发展能力', '美劳素质拓展', '身心健康发展', '学业发展能力'],
+  indicatorname = ['蓝筹度', '流动性', '热度', '社区活跃度', '风险'],
   maxdata = [100, 100, 100, 100, 100],
   optionData = null,
   indicator = [];

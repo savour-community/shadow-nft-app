@@ -63,7 +63,7 @@
         </div>
     </div>
 </template>
-  
+
 <script setup>
 import WhaleHolder from './whaleHolder.vue';
 import PriceCard from './priceCard.vue';
@@ -120,7 +120,7 @@ const priceCardList = ref([{
 const { proxy } = getCurrentInstance();
 
 let data = [80, 70, 30, 85, 25],
-  indicatorname = ['政治品德修养', '社会发展能力', '美劳素质拓展', '身心健康发展', '学业发展能力'],
+  indicatorname = ['蓝筹度', '流动性', '热度', '社区活跃度', '风险'],
   maxdata = [100, 100, 100, 100, 100],
   optionData = null,
   indicator = [];
@@ -276,7 +276,7 @@ onMounted(() => {
 });
 
 </script>
-  
+
 <style lang="scss" scoped>
   .flex{
     display: flex;
@@ -288,7 +288,7 @@ onMounted(() => {
   .justify-between {
     justify-content: space-between;
   }
-  
+
   .text-right{
     text-align: right;
   }
@@ -394,7 +394,7 @@ onMounted(() => {
       border-radius: 24px;
       margin: 0 auto 32px;
       box-sizing: border-box;
- 
+
       .overview-shadow-score-box-main{
         display: flex;
         justify-content: space-between;

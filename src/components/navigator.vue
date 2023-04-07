@@ -2,7 +2,7 @@
   <div class="shadow-nft-nav-container">
       <div class="shadow-nft-nav-box">
           <div class="nav-logo-box">
-              <img src="https://dummyimage.com/280x46/eae0d0" alt="nav-logo" class="nav-logo">
+              <img src="../assets/img/logo.png" alt="nav-logo" class="nav-logo">
               <div class="search-box">
                   <span class="search-icon"><img src="https://dummyimage.com/16x16/eae0d0" alt="search-icon"></span>
                   <input placeholder="Search by collection, NFT" type="text" class="search-ipt">
