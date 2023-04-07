@@ -7,10 +7,13 @@
             <div class="score-chart" ref="scoreChart"></div>
             </div>
             <div class="what-shadow-score-right-box">
-            <p class="shadow-score-desc-title">概要</p>
-            <p class="shadow-score-desc">1. Price异常降低，请注意风险</p>
-            <p class="shadow-score-desc">2. Whale Hold大幅，</p>
-            <p class="shadow-score-desc">3. 近一天TXNs升高，？？？</p>
+              <p class="shadow-score-desc-title">概要</p>
+              <p class="shadow-score-desc">蓝筹度: 蓝筹度越高，说明该 collection 被巨鲸持有量越大, 集合里面的 NFT 越有价值</p>
+              <p class="shadow-score-desc">流动性: 流动性越高，说明该 collection 挂单深度越深并且换手率越高，集合里面的 NFT 越有价值</p>
+              <p class="shadow-score-desc">潜在收益: 潜在收益越高，说明该 collection 均价上升速率快, 地板价和你的成本差距大, 集合里面的 NFT 越有价值</p>
+              <p class="shadow-score-desc">热度: 热度越高，说明该 collection Mint 或者交易次数比较多，集合里面的 NFT 越有价值</p>
+              <p class="shadow-score-desc">社区活跃度: 社区活跃度越高，说明关注该 NFT 的人比较多，集合里面的 NFT 越有价值</p>
+              <p class="shadow-score-desc">风险: 风险与收益是并存的，风险越高，收益也就越大 </p>
             </div>
         </div>
         <div class="flex justify-center">

@@ -8,16 +8,19 @@
               </div>
           </div>
           <div class="what-shadow-score-right-box">
-              <p class="shadow-score-desc">描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释描述解释</p>
-              <p class="shadow-score-desc-title">Safety</p>
-              <p class="shadow-score-desc">描述解释</p>
-              <p class="shadow-score-desc">描述解释</p>
-              <p class="shadow-score-desc-title">Safety</p>
-              <p class="shadow-score-desc">描述解释</p>
-              <p class="shadow-score-desc">描述解释</p>
-              <p class="shadow-score-desc-title">Safety</p>
-              <p class="shadow-score-desc">描述解释</p>
-              <p class="shadow-score-desc">描述解释</p>
+            <p class="shadow-score-desc"></p>
+            <p class="shadow-score-desc-title">蓝筹度</p>
+            <p class="shadow-score-desc">蓝筹度越高，说明该 collection 被巨鲸持有量越大, 集合里面的 NFT 越有价值</p>
+            <p class="shadow-score-desc-title">流动性</p>
+            <p class="shadow-score-desc">流动性越高，说明该 collection 挂单深度越深并且换手率越高，集合里面的 NFT 越有价值</p>
+            <p class="shadow-score-desc-title">潜在收益</p>
+            <p class="shadow-score-desc">潜在收益越高，说明该 collection 均价上升速率快, 地板价和你的成本差距大, 集合里面的 NFT 越有价值</p>
+            <p class="shadow-score-desc-title">热度</p>
+            <p class="shadow-score-desc">热度越高，说明该 collection Mint 或者交易次数比较多，集合里面的 NFT 越有价值</p>
+            <p class="shadow-score-desc-title">社区活跃度</p>
+            <p class="shadow-score-desc">社区活跃度越高，说明关注该 NFT 的人比较多，集合里面的 NFT 越有价值</p>
+            <p class="shadow-score-desc-title">风险</p>
+            <p class="shadow-score-desc">风险与收益是并存的，风险越高，收益也就越大</p>
           </div>
       </div>
   </div>

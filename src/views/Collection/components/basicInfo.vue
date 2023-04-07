@@ -3,7 +3,7 @@
       <div class="shadow-nft-overview-img">
       </div>
       <div class="shadow-nft-overview-content">
-        <div class="title">NameNameName</div>
+        <div class="title">SavourNFT</div>
         <div class="sub-title">
           <div class="sub-title-item">Creator <span class="sub-title-black">XXXXXXXXX</span> </div>
           <div class="sub-title-item">Address <span class="sub-title-black">0x8955...f86b</span> </div>

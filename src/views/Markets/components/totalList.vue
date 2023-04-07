@@ -2,29 +2,29 @@
   <div class="shadow-nft-total-container">
       <ul class="shadow-nft-total-box">
           <li class="shadow-nft-total-item">
-              <h6>NFT Value (ETH)</h6>
-              <p class="data-box">124,564,2323<span class="rise">2.48%</span></p><!-- 涨 rise 跌 fall -->
+              <h6>Collections</h6>
+              <p class="data-box">124,564,3<span class="rise">1.48%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
                   <div ref="shadowTotalChart" style="height: 100%;"></div>
               </div>
           </li>
           <li class="shadow-nft-total-item">
-              <h6>NFT Value (ETH)</h6>
-              <p class="data-box">124,564,2323<span class="rise">2.48%</span></p><!-- 涨 rise 跌 fall -->
+              <h6>NFT Value (USDT)</h6>
+              <p class="data-box">324,514,22<span class="rise">2.48%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
                   <div ref="shadowTotalChart" style="height: 100%;"></div>
               </div>
           </li>
           <li class="shadow-nft-total-item">
-              <h6>NFT Value (ETH)</h6>
-              <p class="data-box">124,564,2323<span class="rise">2.48%</span></p><!-- 涨 rise 跌 fall -->
+              <h6>Whale Holders </h6>
+              <p class="data-box">120,001<span class="rise">0.48%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
                   <div ref="shadowTotalChart" style="height: 100%;"></div>
               </div>
           </li>
           <li class="shadow-nft-total-item">
-              <h6>NFT Value (ETH)</h6>
-              <p class="data-box">124,564,2323<span class="rise">2.48%</span></p><!-- 涨 rise 跌 fall -->
+              <h6>Total Nfts</h6>
+              <p class="data-box">564,232,3<span class="rise">9.48%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
                   <div ref="shadowTotalChart" style="height: 100%;"></div>
               </div>
@@ -41,7 +41,7 @@ const shadowTotalChart = ref([]),
   { proxy } = getCurrentInstance(), // 获取全局配置项
   initMyChart = () => {
     const myChart = proxy.$echarts.init(shadowTotalChart.value),
-      option = {
+      optionOne = {
         xAxis: {
           show: false,
           type: 'category',
@@ -57,26 +57,6 @@ const shadowTotalChart = ref([]),
             data: [150, 230, 224, 218, 135, 147, 260],
             type: 'line',
             symbol: 'none'
-            // areaStyle: {
-            //   color: {
-            //     type: 'linear',
-            //     x: 0,
-            //     y: 0,
-            //     x2: 0,
-            //     y2: 1,
-            //     colorStops: [
-            //       {
-            //         offset: 0, color: '#24AE64' // 0% 处的颜色
-            //       },
-            //       {
-            //         offset: 0.5, color: '#FFFFFF' // 0% 处的颜色
-            //       },
-            //       {
-            //         offset: 1, color: '#FFFFFF' // 100% 处的颜色
-            //       }],
-            //     global: false // 缺省为 false
-            //   }
-            // }
           }
         ],
         grid:{ // 让图表占满容器
@@ -85,13 +65,10 @@ const shadowTotalChart = ref([]),
           right:'0px',
           bottom:'0px'
         }
-
       };
 
-    myChart.setOption(option);
+    myChart.setOption(optionOne);
   };
-
-console.log(shadowTotalChart, 'shadowTotalChartshadowTotalChartshadowTotalChartshadowTotalChart');
 
 onMounted(() => {
   initMyChart();

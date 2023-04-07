@@ -4,12 +4,12 @@
           <div class="nav-logo-box">
               <img src="../assets/img/logo.png" alt="nav-logo" class="nav-logo">
               <div class="search-box">
-                  <span class="search-icon"><img src="https://dummyimage.com/16x16/eae0d0" alt="search-icon"></span>
+                  <span class="search-icon"><img width="12" height="12" src="../assets/img/icon.png" alt="search-icon"></span>
                   <input placeholder="Search by collection, NFT" type="text" class="search-ipt">
               </div>
           </div>
           <ul class="nav-list">
-              <li class="nav-item"><router-link to="/Markets" class="nav-word activted">Markets</router-link></li>
+              <li class="nav-item"><router-link to="/Markets" class="nav-word activted">Index</router-link></li>
               <li class="nav-item"><router-link to="/Collection" class="nav-word">Collection</router-link></li>
               <li class="nav-item"><a href="#" class="nav-word">Docs</a></li>
               <li class="nav-item"><a href="#" class="nav-word">Open API</a></li>

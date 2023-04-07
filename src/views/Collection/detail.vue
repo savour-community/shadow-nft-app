@@ -11,8 +11,8 @@
                     </div>
                 </div>
                 <div class="overview-content">
-                    <div class="title">NameNameName</div>
-                    <div class="sub-title">Holder <span class="c-121214">XXXXXXXXX</span>  0x8955...f86b</div>
+                    <div class="title">SavourNFT</div>
+                    <div class="sub-title">Holder <span class="c-121214"></span>  0x8955...f86b</div>
                     <el-divider />
                     <div class="overview-content-list">
                         <div class="overview-content-item" v-for="item in options" :key="item.title">
