@@ -3,21 +3,26 @@
         <div class="collection-detail-container">
             <div class="mb-32 mt-40 flex">
                 <div class="shadow-nfts-card">
-                    <div class="shadow-nfts-img"></div>
+                    <div class="shadow-nfts-img" :style="`background: url(${nftDetail.image}) no-repeat; background-size: cover`">
+                  </div>
                     <div class="shadow-nfts-card-content">
-                        <div class="shadow-nfts-title">Creator <span class="c-121214">XXXXXXXXX</span>  0x8955...f86b</div>
+                        <div class="shadow-nfts-title flex">
+                          Creator
+                          <div class="c-121214 creator">{{nftDetail.creator}}</div>
+                          <div class="contract flex"><div class="contract-detail">{{nftDetail.contract}}</div><span>{{(nftDetail.contract||'')?.slice(-6)}}</span></div>
+                      </div>
                         <div>Description:</div>
-                        <div class="c-81858C">Ai Makita combines digital and analog methods to express her view of the human world. She creates layers of painted and digital images that are piled</div>
+                        <div class="c-81858C">{{nftDetail.describe}}</div>
                     </div>
                 </div>
                 <div class="overview-content">
-                    <div class="title">NameNameName</div>
-                    <div class="sub-title">Holder <span class="c-121214">XXXXXXXXX</span>  0x8955...f86b</div>
+                    <div class="title">{{nftDetail.name}}</div>
+                    <div class="sub-title">Holder <span class="c-121214">{{nftDetail.holder}}</span>  {{nftDetail.creator}}</div>
                     <el-divider />
                     <div class="overview-content-list">
                         <div class="overview-content-item" v-for="item in options" :key="item.title">
                             <div class="left">{{item.title}}</div>
-                            <div class="right">{{item.value}}</div> 
+                            <div class="right">{{item.value}}</div>
                         </div>
                     </div>
                 </div>
@@ -25,123 +30,138 @@
             <price-card :list="priceCardList" class="mb-32"/>
             <div class="card">
                 <div class="title">项目活动</div>
-                <el-table
-                    :data="tableData"
-                    :default-sort="{ prop: 'date', order: 'descending' }"
-                    style="width: 100%"
-                >
-                    <el-table-column
-                    prop="address"
-                    label="Address"
-                    sortable
-                    width="330"
+                <div class="search-bar">
+                  <el-select
+                    v-model="value1"
+                    multiple
+                    placeholder="Select"
+                    style="width: 240px"
+                  >
+                    <el-option
+                      v-for="item in options"
+                      :key="item.value"
+                      :label="item.label"
+                      :value="item.value"
                     />
-                    <el-table-column prop="tokenValue" label="Token Value" sortable>
-                    <template #default="{ row }">
-                        <div class="vllume-box">
-                        <p>{{ row.tokenValue }}</p>
-                        <span
-                            >0.9%<img src="https://dummyimage.com/8x12/52CCA3"
-                        /></span>
-                        </div>
-                    </template>
-                    </el-table-column>
-                    <el-table-column prop="owned" label="Owned" sortable />
-                    <el-table-column prop="realizedPnL" label="Realized PnL" sortable/>
-                    <el-table-column prop="label" label="Label" sortable />
+                  </el-select>
+                </div>
+                <el-table :data="tableData" :default-sort="{ prop: 'date', order: 'descending' }">
+                    <el-table-column prop="type" label="事件"/>
+                    <el-table-column prop="from_addr" label="Token Value"/>
+                    <el-table-column prop="price" label="Price" sortable />
+                    <el-table-column prop="to_addr" label="To" sortable/>
+                    <el-table-column prop="trade_time" label="Time" sortable />
                 </el-table>
             </div>
         </div>
     </default-layout>
 </template>
-  
+
 <script setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import DefaultLayout from '@/layout/defaultLayout.vue';
 import PriceCard from './components/priceCard.vue';
-const  tableData = [
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  },
-  {
-    address: '0x8955...f86b',
-    tokenValue: 1000,
-    owned: 200,
-    realizedPnL: 'Tom',
-    label: 12300
-  }
-];
+import { getNftDetail } from '@/assets/js/http.js';
+const nftDetail = ref({}),
+  options = ref([]),
+  priceCardList = ref([]),
+  tableData = ref([]);
 
-const priceCardList = ref([{
-  title: 'Price',
-  price: '1000',
-  percent: '2.48%'
-},{
-  title: 'Total Holders',
-  price: '12,121',
-  percent: '2.48%'
-},{
-  title: 'Total Whale Holders',
-  price: '12,121',
-  percent: '2.48%'
-},{
-  title: 'Total TXNs',
-  price: '2.68',
-  percent: '2.48%'
-}
-]);
-const options = [
-  {
-    title: 'contract adress',
-    value: '0x000000000000000000000'
+onMounted(async () => {
+  const res = await getNftDetail({
+    // eslint-disable-next-line
+    nft_id: 1,
+    type: 1,
+    page: 1,
+    // eslint-disable-next-line
+    page_size: 10
+  });
+
+  nftDetail.value = res;
+
+  options.value = [
+    {
+      title: 'contract adress',
+      value: res.contract
+    },{
+      title: 'tokenId',
+      value: res.toke_id
+    },{
+      title: 'Content URL',
+      value: res.contract
+    },{
+      title: 'Minting Hash',
+      value: res.mint_hash
+    },{
+      title: 'Minting Date',
+      value: res.mint_time
+    }
+  ];
+
+  priceCardList.value = [{
+    title: 'Price',
+    price: res.price,
+    percent: '2.48%'
   },{
-    title: 'tokenId',
-    value: '384111112323233'
+    title: 'Total Holders',
+    price: res.holder,
+    percent: '2.48%'
   },{
-    title: 'Content URL',
-    value: 'QmPBS8UwZJfMDftLSxB946PgsDb1FQwnVcCYuXfWoAyxqSView'
+    title: 'Total Whale Holders',
+    price: res.whale_holder,
+    percent: '2.48%'
   },{
-    title: 'Minting Hash',
-    value: '0x5346a5e70a8cc2a4deb85b0ea088a45e9131db7a499fe0bb755c5440a5f57d37'
-  },{
-    title: 'Minting Date',
-    value: '2023-01-30 12:30:47'
-  },{
-    title: '其他字段',
-    value: '2023-01-30 12:30:47'
-  },{
-    title: '其他字段',
-    value: '2023-01-30 12:30:47'
+    title: 'Total TXNs',
+    price: res.total_txn,
+    percent: '2.48%'
   }
-];
+  ];
+
+  tableData.value = res.nft_txn;
+
+  // [
+  //   {
+  //     address: '0x8955...f86b',
+  //     tokenValue: 1000,
+  //     owned: 200,
+  //     realizedPnL: 'Tom',
+  //     label: 12300
+  //   },
+  //   {
+  //     address: '0x8955...f86b',
+  //     tokenValue: 1000,
+  //     owned: 200,
+  //     realizedPnL: 'Tom',
+  //     label: 12300
+  //   },
+  //   {
+  //     address: '0x8955...f86b',
+  //     tokenValue: 1000,
+  //     owned: 200,
+  //     realizedPnL: 'Tom',
+  //     label: 12300
+  //   },
+  //   {
+  //     address: '0x8955...f86b',
+  //     tokenValue: 1000,
+  //     owned: 200,
+  //     realizedPnL: 'Tom',
+  //     label: 12300
+  //   },
+  //   {
+  //     address: '0x8955...f86b',
+  //     tokenValue: 1000,
+  //     owned: 200,
+  //     realizedPnL: 'Tom',
+  //     label: 12300
+  //   }
+  // ]
+
+  console.log(1111111, res);
+});
 
 </script>
-  
+
   <style lang="scss" scoped>
   .flex{
     display: flex;
@@ -182,13 +202,29 @@ const options = [
       .shadow-nfts-img{
         width: 580px;
         height: 642px;
-        background: linear-gradient(0deg, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('~@/assets/img/index_bg.png');
       }
       .shadow-nfts-card-content{
         padding: 24px;
         font-weight: 400;
         font-size: 16px;
         line-height: 24px;
+        .creator{
+          width: 237px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          margin-left: 8px;
+        }
+        .contract{
+          font-size: 18px;
+          margin-left: 8px;
+        }
+        .contract-detail{
+          width: 86px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
       }
       .shadow-nfts-title{
         font-weight: 600;

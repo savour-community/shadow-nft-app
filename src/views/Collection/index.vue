@@ -3,20 +3,21 @@
     <div class="shadow-setting-container">
         <banner />
         <div  class="main">
-          <basic-info />
-          <tabs-table />
+          <basic-info :collectionDetail="collectionDetail"/>
+          <tabs-table :collectionDetail="collectionDetail"/>
         </div>
     </div>
   </default-layout>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import DefaultLayout from '@/layout/defaultLayout.vue';
 import Banner from './components/banner.vue';
 import BasicInfo from './components/basicInfo.vue';
 import TabsTable from './components/tabsTable.vue';
 import { getHotCollectionDetail } from '@/assets/js/http.js';
+const collectionDetail = ref({});
 
 onMounted(async () => {
   const res = await getHotCollectionDetail({
@@ -26,6 +27,8 @@ onMounted(async () => {
     // eslint-disable-next-line
     page_size: 10
   });
+
+  collectionDetail.value = res;
 
   console.log(1111111, res);
 });

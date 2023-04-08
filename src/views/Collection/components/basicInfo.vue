@@ -1,15 +1,15 @@
 <template>
   <div class="shadow-nft-overview-container">
-      <div class="shadow-nft-overview-img">
+      <div class="shadow-nft-overview-img" :style="`background: url(${collectionDetail.image})`">
       </div>
       <div class="shadow-nft-overview-content">
-        <div class="title">NameNameName</div>
+        <div class="title">{{collectionDetail.name}}</div>
         <div class="sub-title">
-          <div class="sub-title-item">Creator <span class="sub-title-black">XXXXXXXXX</span> </div>
-          <div class="sub-title-item">Address <span class="sub-title-black">0x8955...f86b</span> </div>
-          <div class="sub-title-item">Chain <span class="sub-title-black">Ethereum</span> </div>
+          <div class="sub-title-item">Creator <span class="sub-title-black">{{collectionDetail.creator}}</span> </div>
+          <div class="sub-title-item">Address <span class="sub-title-black">{{collectionDetail.creator}}</span> </div>
+          <div class="sub-title-item">Chain <span class="sub-title-black">{{collectionDetail.chain}}</span> </div>
         </div>
-        <div class="desc">Ai Makita combines digital and analog methods to express her view of the human world. She creates layers of painted and digital images that are piled </div>
+        <div class="desc">{{collectionDetail.introduce}} </div>
       </div>
       <div class="shadow-nft-overview-score">
         <div class="title">Shadow Score</div>
@@ -23,7 +23,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance, toRefs } from 'vue';
+
+const props = defineProps({
+    collectionDetail: Object
+  }),
+
+  {collectionDetail} = toRefs(props);
+
+console.log(222222, collectionDetail);
 
 const shadowTotalChart = ref([]),
 
@@ -115,10 +123,17 @@ onMounted(() => {
         color: #ADB1B8;
       }
       .sub-title-item{
+        display: flex;
+        align-items: center;
         margin-right: 24px;
       }
       .sub-title-black{
+        display: inline-block;
         color: #121214;
+        width: 150px;
+        overflow: hidden;
+        margin-left: 24px;
+        text-overflow: ellipsis;
       }
       .desc{
         font-weight: 400;

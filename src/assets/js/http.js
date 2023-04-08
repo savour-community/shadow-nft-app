@@ -145,7 +145,23 @@ export const getIndex = params => {
   });
 };
 
+// 3. collect detail
 export const getHotCollectionDetail = params => {
-  // return http.get('/api/v1/GetIndex', params);
   return http.post('/api/v1/GetHotCollectionDetail', params);
+};
+
+
+//4. get live mint nft
+export const getLiveMintList = params => {
+  return http.post('/api/v1/GetLiveMintList', params);
+};
+
+// 5. get nft by collection
+export const getNftByCollectionId = params => {
+  return http.post('/api/v1/GetNftByCollectionId', params);
+};
+
+// 6. get nft detail
+export const getNftDetail = params => {
+  return http.post('/api/v1/GetNftById', params);
 };
