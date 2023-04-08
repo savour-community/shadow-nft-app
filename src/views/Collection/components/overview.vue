@@ -17,7 +17,7 @@
             <el-icon><Warning /></el-icon>  <span class="c-81858C">推荐指数仅供参考，请注意投资风险</span>
         </div>
         </div>
-        <div class="flex justify-between mb-46">
+        <div class="flex justify-between mb-46 hidden">
           <div class="flex">
               <div class="mr-32 holders-type">
                   <div :class="holdersType === 'total' ? 'holders-type-item active': 'holders-type-item'">Total</div>
@@ -64,6 +64,7 @@
           </div>
           <div class="card">
             <div class="title">搜索热度指数</div>
+            <div class="chart-container" ref="hotChart"></div>
           </div>
         </div>
     </div>
@@ -72,7 +73,7 @@
 <script setup>
 import WhaleHolder from './whaleHolder.vue';
 import PriceCard from './priceCard.vue';
-
+import * as echarts from 'echarts';
 import { ref, onMounted, getCurrentInstance, watchEffect } from 'vue';
 import { Search, Warning } from '@element-plus/icons-vue';
 
@@ -114,6 +115,7 @@ const props = defineProps({
   listChart = ref(null),
   floorChart = ref(null),
   exploreChart = ref(null),
+  hotChart = ref(null),
 
   priceCardList = ref([{
     title: 'Total Price',
@@ -141,17 +143,6 @@ let data = [0,0,0,0,0,0],
   maxdata = [100, 100, 100, 100, 100, 100],
   optionData = null,
   indicator = [];
-
-watchEffect(()=>{
-  // eslint-disable-next-line
-  const {shadow_score} = props.collectionDetail;
-  // eslint-disable-next-line
-  if(shadow_score){
-    // eslint-disable-next-line
-    data= [shadow_score.blue_chip, shadow_score.potential_income, shadow_score.heat, shadow_score.community_active, shadow_score.reliability,shadow_score.fluidity]
-  }
-  console.log(8888,props.collectionDetail);
-});
 
 const contains = (arrays, obj) => {
     let i = arrays.length;
@@ -297,19 +288,24 @@ const contains = (arrays, obj) => {
     myChart.setOption(option);
   },
 
-  initPriceChart = () => {
+  initPriceChart = (arr) => {
     const myChart = proxy.$echarts.init(priceChart.value),
       option = {
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: arr.map(item=> item.stat_time)
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: [120, 200, 150, 80, 70, 110, 130],
+            itemStyle: {
+              normal: {
+                color: 'rgba(119, 196, 242, 1)'
+              }
+            },
+            data: arr.map(item=> item.price),
             type: 'bar'
           }
         ]
@@ -318,20 +314,50 @@ const contains = (arrays, obj) => {
     myChart.setOption(option);
   },
 
-  initVolumeChart = () => {
+  initVolumeChart = (arr) => {
     const myChart = proxy.$echarts.init(volumeChart.value),
       option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            crossStyle: {
+              color: '#999'
+            }
+          }
+        },
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: arr.map(item=> item.stat_time)
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: [120, 200, 150, 80, 70, 110, 130],
+            itemStyle: {
+              normal: {
+                color: 'rgba(119, 196, 242, 1)'
+              }
+            },
+            symbolSize:0,
+            data: arr.map(item=> item.volume),
             type: 'bar'
+          },
+          {
+            itemStyle: {
+              normal: {
+                color: 'rgba(194, 95, 255, 1)',
+                lineStyle: {
+                  width: 2,
+                  type: 'solid',
+                  color: 'rgba(194, 95, 255, 1)'
+                }
+              }
+            },
+            symbolSize:0,
+            data: arr.map(item=> item.volume),
+            type: 'line'
           }
         ]
       };
@@ -339,19 +365,24 @@ const contains = (arrays, obj) => {
     myChart.setOption(option);
   },
 
-  initListChart = () => {
+  initListChart = (arr) => {
     const myChart = proxy.$echarts.init(listChart.value),
       option = {
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: arr.map(item=> item.stat_time)
         },
         yAxis: {
           type: 'value'
         },
         series: [
           {
-            data: [120, 200, 150, 80, 70, 110, 130],
+            itemStyle: {
+              normal: {
+                color: 'rgba(119, 196, 242, 1)'
+              }
+            },
+            data: arr.map(item=> item.price_dis),
             type: 'bar'
           }
         ]
@@ -360,19 +391,51 @@ const contains = (arrays, obj) => {
     myChart.setOption(option);
   },
 
-  initFloorChart = () => {
+  initFloorChart = (arr) => {
     const myChart = proxy.$echarts.init(floorChart.value),
       option = {
+        tooltip: {
+          trigger: 'axis'
+        },
         xAxis: {
           type: 'category',
-          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+          data: arr.map(item=> item.stat_time)
         },
         yAxis: {
           type: 'value'
         },
+        legend: {
+          data: ['Best Offer', 'Floor Price']
+        },
         series: [
           {
-            data: [150, 230, 224, 218, 135, 147, 260],
+            name: 'Floor Price',
+            itemStyle: {
+              normal: {
+                color: 'rgba(194, 95, 255, 1)',
+                lineStyle: {
+                  width: 2,
+                  type: 'solid',
+                  color: 'rgba(194, 95, 255, 1)'
+                }
+              }
+            },
+            symbolSize:0,
+            data: arr.map(item=> item.floor_price),
+            type: 'line'
+          },
+          {
+            name: 'Best Offer',
+            itemStyle: {
+              normal: {
+                lineStyle: {
+                  width: 2,
+                  type: 'solid'
+                }
+              }
+            },
+            symbolSize:0,
+            data: arr.map(item=> item.best_offer),
             type: 'line'
           }
         ]
@@ -381,37 +444,37 @@ const contains = (arrays, obj) => {
     myChart.setOption(option);
   },
   initExploreChart = () => {
-    const keywords = [];
+    const keywords = ['TAMA','LAND','PINK','NRUTO','USDA','ARTEMIS','DPS','STE','PIT','SAINT','BUBBLE','HIODBS','HULK','VERSE','LFGO','RTM','HFT','BINARYX'],
+      newKeywords = [];
 
-    for (let index = 0; index < 20; index++) {
-      let random = Math.floor(Math.random() * 100);
+    for (let index = 0; index < keywords.length; index++) {
+      // let random = Math.floor(Math.random() * 18);
 
-      keywords.push({
-        name: random,
-        value: random
+      newKeywords.push({
+        name: keywords[index],
+        value: index
       });
     }
+
     const myChart = proxy.$echarts.init(exploreChart.value),
       option = {
-        // title: {
-        //   text: '热词',
-        //   textStyle: {
-        //     color: '#148D75'
-        //   },
-        //   top: 14,
-        //   left: 26
-        // },
         series: [
           {
             type: 'wordCloud',
+            // shape: 'circle',
+            shape: 'pentagon',
+            left: 'center',
+            top: 'center',
+            right: null,
+            bottom: null,
             sizeRange: [12, 60],
             rotationRange: [-90, 90],
             rotationStep: 45,
-            gridSize: 15,
-            shape: 'pentagon',
+            gridSize: 8,
             width: '100%',
             height: '100%',
             drawOutOfBound: true,
+            layoutAnimation: true,
             textStyle: {
               color: function () {
                 const colorArr = [
@@ -440,13 +503,74 @@ const contains = (arrays, obj) => {
               }
             },
             emphasis: {
+              focus: 'self',
               textStyle: {
-                shadowBlur: 10,
-                shadowColor: '#333',
-                color: 'red'
+                // textShadowBlur: 10,
+                // textShadowColor: '#333'
+                // shadowBlur: 10,
+                // shadowColor: '#333',
+                // transform: 'scale(1.5)',
+                // color: 'black',
+                // lineWidth: 3
               }
             },
-            data: keywords
+            data:newKeywords
+          }
+        ]
+      };
+
+    myChart.setOption(option);
+  },
+  initHotChart = () => {
+    const myChart = proxy.$echarts.init(hotChart.value),
+      option = {
+        tooltip: {
+          trigger: 'axis'
+        },
+        grid: {
+          left: '3%',
+          right: '4%',
+          bottom: '3%',
+          containLabel: true
+        },
+        xAxis: {
+          type: 'category',
+          boundaryGap: false,
+          data: ['2021-12-12', '2022-01-16', '2022-02-20', '2022-08-14', '2022-09-18', '2022-10-23', '2022-11-27']
+        },
+        yAxis: {
+          type: 'value'
+        },
+        series: [
+          {
+            itemStyle: {
+              normal: {
+                color: new echarts.graphic.LinearGradient(0, 0, 0, 1,[{
+                  offset: 0, color: 'rgba(194, 95, 255, 0.97)'
+                }, {
+                  offset: 1, color: 'rgba(255, 255, 255, 0)'
+                }
+                ]
+                ),
+                lineStyle: {
+                  width: 2,
+                  type: 'solid',
+                  color: 'rgba(194, 95, 255, 1)'
+                }
+              }
+              // emphasis: {
+              //   color: 'rgba(194, 95, 255, 1)',
+              //   lineStyle: { // 系列级个性化折线样式
+              //     width:2,
+              //     type: 'dotted',
+              //     color: 'rgba(194, 95, 255, 1)' //折线的颜色
+              //   }
+              // }
+            },
+            symbolSize:0,
+            areaStyle: {normal: {}},
+            data: [40, 59, 100, 10, 80, 30, 90],
+            type: 'line'
           }
         ]
       };
@@ -458,13 +582,30 @@ const contains = (arrays, obj) => {
 onMounted(() => {
   setTimeout(() => {
     initScoreChart();
-    initPriceChart();
-    initVolumeChart();
-    initListChart();
-    initFloorChart();
+    // initPriceChart();
+    // initVolumeChart();
+    // initListChart();
+    // initFloorChart();
     initExploreChart();
-
+    initHotChart();
   }, 1000);
+  watchEffect(()=>{
+  // eslint-disable-next-line
+  const {shadow_score, list_list, trading_list, volume_list,whale_holder, floor_price_list} = props.collectionDetail;
+    // eslint-disable-next-line
+  if(shadow_score){
+    // eslint-disable-next-line
+    data= [shadow_score.blue_chip, shadow_score.potential_income, shadow_score.heat, shadow_score.community_active, shadow_score.reliability,shadow_score.fluidity]
+    }
+    // eslint-disable-next-line
+    initPriceChart(trading_list||[] );
+    // eslint-disable-next-line
+    initVolumeChart(volume_list||[]);
+    // eslint-disable-next-line
+    initListChart(list_list||[]);
+    // eslint-disable-next-line
+    initFloorChart(floor_price_list||[]);
+  });
 });
 
 </script>
@@ -473,6 +614,9 @@ onMounted(() => {
   .flex{
     display: flex;
     align-items: center;
+  }
+  .hidden{
+    display: none;
   }
   .justify-center {
     justify-content: center;
@@ -537,7 +681,8 @@ onMounted(() => {
     flex-wrap: wrap;
     justify-content: space-between;
     .card{
-      width: 664px;
+      width: 48%;
+      min-width: 664px;
       height: 468px;
       padding: 24px;
       background: #FFFFFF;
@@ -582,7 +727,8 @@ onMounted(() => {
   }
   .overview-shadow{
     .chart-container{
-      width: 600px;
+      width: 100%;
+      min-width: 600px;
       height: 441px;
     }
   }

@@ -8,7 +8,7 @@ module.exports = defineConfig({
     https: false,
     proxy: {
       '/dev': {
-        target:'http://193.203.215.185:8888',
+        target:'http://193.203.215.185:8080',
         changeOrigin: true,
         pathRewrite: { '^/dev': '' },
         secure: false

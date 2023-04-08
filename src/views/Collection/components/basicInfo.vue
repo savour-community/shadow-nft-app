@@ -5,8 +5,20 @@
       <div class="shadow-nft-overview-content">
         <div class="title">{{collectionDetail.name}}</div>
         <div class="sub-title">
-          <div class="sub-title-item">Creator <span class="sub-title-black">{{collectionDetail.creator}}</span> </div>
-          <div class="sub-title-item">Address <span class="sub-title-black">{{collectionDetail.creator}}</span> </div>
+          <div class="sub-title-item">Creator
+            <span class="sub-title-black">
+              <el-tooltip :content="collectionDetail.creator" placement="top">
+                          {{collectionDetail.creator}}
+              </el-tooltip>
+            </span>
+            </div>
+          <div class="sub-title-item">Address
+            <span class="sub-title-black">
+              <el-tooltip :content="collectionDetail.collection_addr" placement="top">
+                          {{collectionDetail.collection_addr}}
+              </el-tooltip>
+            </span>
+            </div>
           <div class="sub-title-item">Chain <span class="sub-title-black">{{collectionDetail.chain}}</span> </div>
         </div>
         <div class="desc">{{collectionDetail.introduce}} </div>
@@ -29,11 +41,9 @@ const props = defineProps({
     collectionDetail: Object
   }),
 
-  {collectionDetail} = toRefs(props);
+  {collectionDetail} = toRefs(props),
 
-console.log(222222, collectionDetail);
-
-const shadowTotalChart = ref([]),
+  shadowTotalChart = ref([]),
 
   { proxy } = getCurrentInstance(), // 获取全局配置项
   initMyChart = () => {
@@ -124,13 +134,17 @@ onMounted(() => {
       }
       .sub-title-item{
         display: flex;
+        flex: 1;
+        width: 0;
         align-items: center;
         margin-right: 24px;
       }
       .sub-title-black{
+        flex:1;
+        width: 0;
         display: inline-block;
         color: #121214;
-        width: 150px;
+        min-width: 150px;
         overflow: hidden;
         margin-left: 24px;
         text-overflow: ellipsis;
@@ -144,6 +158,7 @@ onMounted(() => {
       .shadow-nft-overview-content{
         flex: 1;
         margin-right: 60px;
+        width: 0;
       }
       .shadow-nft-overview-score{
         width: 200px;

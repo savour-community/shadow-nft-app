@@ -2,7 +2,7 @@
   <default-layout>
     <div class="shadow-setting-container">
         <banner />
-        <div  class="main">
+        <div class="main">
           <basic-info :collectionDetail="collectionDetail"/>
           <tabs-table :collectionDetail="collectionDetail"/>
         </div>
@@ -17,20 +17,20 @@ import Banner from './components/banner.vue';
 import BasicInfo from './components/basicInfo.vue';
 import TabsTable from './components/tabsTable.vue';
 import { getHotCollectionDetail } from '@/assets/js/http.js';
-const collectionDetail = ref({});
+const collectionDetail = ref({}),
+  search = window.location.search,
+  params = new URLSearchParams(search);
 
 onMounted(async () => {
   const res = await getHotCollectionDetail({
     // eslint-disable-next-line
-    collection_id: 1,
+    collection_id: Number(params.get('id')),
     page: 1,
     // eslint-disable-next-line
     page_size: 10
   });
 
   collectionDetail.value = res;
-
-  console.log(1111111, res);
 });
 </script>
 

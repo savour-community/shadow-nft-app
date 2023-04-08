@@ -27,9 +27,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance, watchEffect } from 'vue';
+const { shadowScore } = defineProps({
+  shadowScore: Object
+});
 
-let data = [80, 70, 30, 85, 25],
+let data = [85, 70, 30, 85, 25],
   indicatorname = ['蓝筹度', '流动性', '热度', '社区活跃度', '风险'],
   maxdata = [100, 100, 100, 100, 100],
   optionData = null,
@@ -186,6 +189,11 @@ onMounted(() => {
     };
 
   myChart.setOption(option);
+});
+watchEffect(()=>{
+  if(shadowScore){
+    data= [shadowScore.blue_chip, shadowScore.potential_income, shadowScore.heat, shadowScore.community_active, shadowScore.fluidity];
+  }
 });
 </script>
 
