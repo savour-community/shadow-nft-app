@@ -2,20 +2,16 @@
     <div class="shadow-nft-banner-container">
         <div class="shadow-nft-banner-box">
             <div class="shadow-nft-banner-left-box">
-                <img src="https://dummyimage.com/465x56/eae0d0" alt="" class="logo">
+<!--                <img src="../../../assets/img/logo.png" alt="" class="logo">-->
                 <p class="logo-desc-text">最新最全NFT市场情报，独创NFT推荐指数，更快一步获取收益</p>
                 <div class="banner-nav-list">
                     <span>Support Public Chain</span>
-                    <a href="#"><img src="https://dummyimage.com/16x16/eae0d0" alt=""></a>
-                    <a href="#"><img src="https://dummyimage.com/16x16/eae0d0" alt=""></a>
-                    <a href="#"><img src="https://dummyimage.com/16x16/eae0d0" alt=""></a>
-                    <a href="#"><img src="https://dummyimage.com/16x16/eae0d0" alt=""></a>
-                    <a href="#"><img src="https://dummyimage.com/16x16/eae0d0" alt=""></a>
-                    <a href="#"><img src="https://dummyimage.com/16x16/eae0d0" alt=""></a>
+                    <a href="#"><img width="16" height="16" src="../../../assets/img/logo_scroll.png" alt=""></a>
+                    <a href="#"><img width="16" height="16" src="../../../assets/img/log_eth.png" alt=""></a>
                 </div>
             </div>
             <div class="shadow-nft-banner-right-box">
-                <img src="https://dummyimage.com/404x165/eae0d0" alt="">
+<!--                <img src="https://dummyimage.com/404x165/eae0d0" alt="">-->
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@
   <div class="shadow-nft-footer-container">
     <div class="shadow-nft-footer-box">
       <div class="footer-left-box">
-        <img src="https://dummyimage.com/280x46/eae0d0" alt="footer-logo">
+        <img src="../assets/img/logo.png" alt="footer-logo">
         <p>最新最全NFT市场情报，独创NFT推荐指数，更快一步获取收益</p>
       </div>
       <div class="footer-right-box">
@@ -20,9 +20,11 @@
         </div>
         <div class="join-us-box">
           <h6 class="title">Join us</h6>
-          <a href="#"><img src="https://dummyimage.com/40x40/eae0d0" alt=""></a>
-          <a href="#"><img src="https://dummyimage.com/40x40/eae0d0" alt=""></a>
-          <a href="#"><img src="https://dummyimage.com/40x40/eae0d0" alt=""></a>
+          <a href="https://twitter.com/0xsavourlabs"><img src="../assets/img/twitter.svg" alt=""></a>
+          <a href="https://t.me/+qqhy1i-_xnU1M2Jl"><img src="../assets/img/telegram.svg" alt=""></a>
+          <a href="https://discord.gg/9N62gJgMVW"><img src="../assets/img/discord.svg" alt=""></a>
+          <a href="https://discord.gg/9N62gJgMVW"><img src="../assets/img/github.svg" alt=""></a>
+
         </div>
       </div>
     </div>
