@@ -65,12 +65,14 @@ import { getNftDetail } from '@/assets/js/http.js';
 const nftDetail = ref({}),
   options = ref([]),
   priceCardList = ref([]),
-  tableData = ref([]);
+  tableData = ref([]),
+  search = window.location.search,
+  params = new URLSearchParams(search);
 
 onMounted(async () => {
   const res = await getNftDetail({
     // eslint-disable-next-line
-    nft_id: 1,
+    nft_id: Number(params.get('id')||1),
     type: 1,
     page: 1,
     // eslint-disable-next-line

@@ -12,16 +12,18 @@
             </el-select>
         </div>
         <div class="shadow-nfts-card-container">
-            <router-link to="/CollectionDetail" class="shadow-nfts-card" v-for="i in cardList" :key="i">
-                <div class="shadow-nfts-img"></div>
+            <router-link :to="`/CollectionDetail?id=${i.id}`" class="shadow-nfts-card" v-for="i in cardList" :key="i">
+                <div class="shadow-nfts-img">
+                  <img :src="i.image" :alt="i.name" width="100%">
+                </div>
                 <div class="shadow-nfts-card-content">
-                    <di class="shadow-nfts-title">Picture Of Colorful Nice YeP Illustration #1509-287</di>
+                    <di class="shadow-nfts-title">{{i.name}}</di>
                     <div class="flex justify-between">
                     <span class="c-81858C">Price</span>
-                    <span>0.144 ETH</span>
+                    <span>{{i.price}} ETH</span>
                     </div>
                     <div class="text-right c-81858C">
-                    ≈ $ 662.50
+                    ≈ $ {{i.usd_price}}
                     </div>
                 </div>
             </router-link>
@@ -30,11 +32,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
-
+import { ref, onMounted } from 'vue';
+import { getNftByCollectionId } from '@/assets/js/http.js';
 const nftsStr= ref(''),
   nftsType= ref(''),
-  cardList = ref(15),
+  cardList = ref([]),
   options = [
     {
       value: 'Option1',
@@ -56,8 +58,21 @@ const nftsStr= ref(''),
       value: 'Option5',
       label: 'Option5'
     }
-  ];
+  ],
+  search = window.location.search,
+  params = new URLSearchParams(search);
 
+onMounted(async () => {
+  const res = await getNftByCollectionId({
+    // eslint-disable-next-line
+    collect_id: Number(params.get('id')||1),
+    page: 1,
+    // eslint-disable-next-line
+    page_size: 10
+  });
+
+  cardList.value = res;
+});
 </script>
 
 <style lang="scss" scoped>
@@ -137,6 +152,10 @@ const nftsStr= ref(''),
         height: 234px;
         width: 234px;
         background: rgba(16, 16, 20, 0.7);
+        img{
+          width: 100%;
+          display: block;
+        }
       }
       .shadow-nfts-card-content{
         padding: 16px;

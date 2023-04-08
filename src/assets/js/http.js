@@ -165,3 +165,4 @@ export const getNftByCollectionId = params => {
 export const getNftDetail = params => {
   return http.post('/api/v1/GetNftById', params);
 };
+
