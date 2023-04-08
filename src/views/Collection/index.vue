@@ -24,7 +24,7 @@ const collectionDetail = ref({}),
 onMounted(async () => {
   const res = await getHotCollectionDetail({
     // eslint-disable-next-line
-    collection_id: Number(params.get('id')),
+    collection_id: Number(params.get('id')||1),
     page: 1,
     // eslint-disable-next-line
     page_size: 10
