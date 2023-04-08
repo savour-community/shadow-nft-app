@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div class="flex justify-between mb-46">
-        <div class="flex">
+        <div class="flex justify-between mb-46 hidden">
+        <div class="flex ">
             <div class="mr-32 holders-type">
                 <div :class="holdersType === 'total' ? 'holders-type-item active': 'holders-type-item'">Total</div>
                 <div :class="holdersType === 'average' ? 'holders-type-item active': 'holders-type-item'">Average</div>
@@ -88,6 +88,9 @@ const props = defineProps({
   .flex{
     display: flex;
     align-items: center;
+  }
+  .hidden{
+    display: none;
   }
   .justify-center {
     justify-content: center;

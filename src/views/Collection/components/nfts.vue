@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="flex">
+        <div class="flex hidden">
             <el-input  :prefix-icon="Search" class="search-input mr-32" v-model="nftsStr" placeholder="Please input" />
             <el-select v-model="nftsType" class="search-select"  placeholder="Select">
             <el-option
@@ -64,6 +64,9 @@ const nftsStr= ref(''),
   .flex{
     display: flex;
     align-items: center;
+  }
+  .hidden{
+    display: none;
   }
   .justify-center {
     justify-content: center;
