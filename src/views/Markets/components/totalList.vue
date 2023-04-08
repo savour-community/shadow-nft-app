@@ -3,30 +3,30 @@
       <ul class="shadow-nft-total-box">
           <li class="shadow-nft-total-item">
               <h6>Collections</h6>
-              <p class="data-box">124,564,3<span class="rise">1.48%</span></p><!-- 涨 rise 跌 fall -->
+              <p class="data-box">{{formatPrice(listData.total_collections)}}<span class="rise">{{listData.total_collections_ratio}}%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
-                  <div ref="shadowTotalChart" style="height: 100%;"></div>
+                  <div ref="collectionChart" style="height: 100%;"></div>
               </div>
           </li>
           <li class="shadow-nft-total-item">
               <h6>NFT Value (USDT)</h6>
-              <p class="data-box">324,514,22<span class="rise">2.48%</span></p><!-- 涨 rise 跌 fall -->
+              <p class="data-box">{{formatPrice(listData.total_nft_value)}}<span class="rise">{{listData.total_nft_value_ratio}}%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
-                  <div ref="shadowTotalChart" style="height: 100%;"></div>
+                  <div ref="nftChart" style="height: 100%;"></div>
               </div>
           </li>
           <li class="shadow-nft-total-item">
               <h6>Whale Holders </h6>
-              <p class="data-box">120,001<span class="rise">0.48%</span></p><!-- 涨 rise 跌 fall -->
+              <p class="data-box">{{formatPrice(listData.total_whale)}}<span class="rise">{{listData.total_whale_ratio}}%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
-                  <div ref="shadowTotalChart" style="height: 100%;"></div>
+                  <div ref="totalWhaleChart" style="height: 100%;"></div>
               </div>
           </li>
           <li class="shadow-nft-total-item">
               <h6>Total Nfts</h6>
-              <p class="data-box">564,232,3<span class="rise">9.48%</span></p><!-- 涨 rise 跌 fall -->
+              <p class="data-box">{{formatPrice(listData.total_nft)}}<span class="rise">{{listData.total_nft_ratio}}%</span></p><!-- 涨 rise 跌 fall -->
               <div class="folding-chart-box">
-                  <div ref="shadowTotalChart" style="height: 100%;"></div>
+                  <div ref="totalNftChart" style="height: 100%;"></div>
               </div>
           </li>
       </ul>
@@ -34,13 +34,18 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, getCurrentInstance, watchEffect } from 'vue';
 
-const shadowTotalChart = ref([]),
-
+const collectionChart = ref(null),
+  nftChart = ref(null),
+  totalWhaleChart = ref(null),
+  totalNftChart = ref(null),
+  props = defineProps({
+    listData: Object
+  }),
   { proxy } = getCurrentInstance(), // 获取全局配置项
-  initMyChart = () => {
-    const myChart = proxy.$echarts.init(shadowTotalChart.value),
+  initCollectionChart = () => {
+    const myChart = proxy.$echarts.init(collectionChart.value),
       optionOne = {
         xAxis: {
           show: false,
@@ -54,7 +59,101 @@ const shadowTotalChart = ref([]),
         color: ['#20B26C'],
         series: [
           {
-            data: [150, 230, 224, 218, 135, 147, 260],
+            data: props.listData.total_collections_stat,
+            type: 'line',
+            symbol: 'none'
+          }
+        ],
+        grid:{ // 让图表占满容器
+          top:'0px',
+          left:'0px',
+          right:'0px',
+          bottom:'0px'
+        }
+      };
+
+    myChart.setOption(optionOne);
+  },
+  formatPrice = (price) =>{
+    return String(price).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+  },
+  initNftChart = () => {
+    const myChart = proxy.$echarts.init(nftChart.value),
+      optionOne = {
+        xAxis: {
+          show: false,
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value',
+          show: false
+        },
+        color: ['#20B26C'],
+        series: [
+          {
+            // data: [150, 230, 224, 218, 135, 147, 260],
+            data: props.listData.total_nft_value_stat,
+            type: 'line',
+            symbol: 'none'
+          }
+        ],
+        grid:{ // 让图表占满容器
+          top:'0px',
+          left:'0px',
+          right:'0px',
+          bottom:'0px'
+        }
+      };
+
+    myChart.setOption(optionOne);
+  },
+  initTotalWhaleChart = () => {
+    const myChart = proxy.$echarts.init(totalWhaleChart.value),
+      optionOne = {
+        xAxis: {
+          show: false,
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value',
+          show: false
+        },
+        color: ['#20B26C'],
+        series: [
+          {
+            data: props.listData.total_whale_stat,
+            type: 'line',
+            symbol: 'none'
+          }
+        ],
+        grid:{ // 让图表占满容器
+          top:'0px',
+          left:'0px',
+          right:'0px',
+          bottom:'0px'
+        }
+      };
+
+    myChart.setOption(optionOne);
+  },
+  initTotalNftChart = () => {
+    const myChart = proxy.$echarts.init(totalNftChart.value),
+      optionOne = {
+        xAxis: {
+          show: false,
+          type: 'category',
+          data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+        },
+        yAxis: {
+          type: 'value',
+          show: false
+        },
+        color: ['#20B26C'],
+        series: [
+          {
+            data: props.listData.total_nft_stat,
             type: 'line',
             symbol: 'none'
           }
@@ -70,10 +169,17 @@ const shadowTotalChart = ref([]),
     myChart.setOption(optionOne);
   };
 
-onMounted(() => {
-  initMyChart();
+watchEffect(()=>{
+  console.log(999999, props.listData);
+  if(props.listData){
+    setTimeout(()=>{
+      initCollectionChart();
+      initNftChart();
+      initTotalWhaleChart();
+      initTotalNftChart();
+    },100);
+  }
 });
-
 
 </script>
 

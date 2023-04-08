@@ -1,15 +1,27 @@
 <template>
   <div class="shadow-nft-overview-container">
-      <div class="shadow-nft-overview-img">
+      <div class="shadow-nft-overview-img" :style="`background: url(${collectionDetail.image})`">
       </div>
       <div class="shadow-nft-overview-content">
-        <div class="title">SavourNFT</div>
+        <div class="title">{{collectionDetail.name}}</div>
         <div class="sub-title">
-          <div class="sub-title-item">Creator <span class="sub-title-black">XXXXXXXXX</span> </div>
-          <div class="sub-title-item">Address <span class="sub-title-black">0x8955...f86b</span> </div>
-          <div class="sub-title-item">Chain <span class="sub-title-black">Ethereum</span> </div>
+          <div class="sub-title-item">Creator
+            <span class="sub-title-black">
+              <el-tooltip :content="collectionDetail.creator" placement="top">
+                          {{collectionDetail.creator}}
+              </el-tooltip>
+            </span>
+            </div>
+          <div class="sub-title-item">Address
+            <span class="sub-title-black">
+              <el-tooltip :content="collectionDetail.collection_addr" placement="top">
+                          {{collectionDetail.collection_addr}}
+              </el-tooltip>
+            </span>
+            </div>
+          <div class="sub-title-item">Chain <span class="sub-title-black">{{collectionDetail.chain}}</span> </div>
         </div>
-        <div class="desc">Ai Makita combines digital and analog methods to express her view of the human world. She creates layers of painted and digital images that are piled </div>
+        <div class="desc">{{collectionDetail.introduce}} </div>
       </div>
       <div class="shadow-nft-overview-score">
         <div class="title">Shadow Score</div>
@@ -23,9 +35,15 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance, toRefs } from 'vue';
 
-const shadowTotalChart = ref([]),
+const props = defineProps({
+    collectionDetail: Object
+  }),
+
+  {collectionDetail} = toRefs(props),
+
+  shadowTotalChart = ref([]),
 
   { proxy } = getCurrentInstance(), // 获取全局配置项
   initMyChart = () => {
@@ -115,10 +133,21 @@ onMounted(() => {
         color: #ADB1B8;
       }
       .sub-title-item{
+        display: flex;
+        flex: 1;
+        width: 0;
+        align-items: center;
         margin-right: 24px;
       }
       .sub-title-black{
+        flex:1;
+        width: 0;
+        display: inline-block;
         color: #121214;
+        min-width: 150px;
+        overflow: hidden;
+        margin-left: 24px;
+        text-overflow: ellipsis;
       }
       .desc{
         font-weight: 400;
@@ -129,6 +158,7 @@ onMounted(() => {
       .shadow-nft-overview-content{
         flex: 1;
         margin-right: 60px;
+        width: 0;
       }
       .shadow-nft-overview-score{
         width: 200px;

@@ -12,9 +12,9 @@
 import { toRefs } from 'vue';
 
 const props = defineProps({
-  list: Array
-});
-const {list} = toRefs(props);
+    list: Array
+  }),
+  {list} = toRefs(props);
 
 </script>
 
@@ -44,7 +44,7 @@ const {list} = toRefs(props);
         font-weight: 400;
         font-size: 14px;
         line-height: 22px;
-        
+
       }
       .green{
         color: #24AE64;

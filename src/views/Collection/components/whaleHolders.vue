@@ -21,7 +21,7 @@
         <div class="holders-container">
         <div class="title">Whale Holder</div>
         <el-table
-            :data="tableData"
+            :data="whaleHolder"
             :default-sort="{ prop: 'date', order: 'descending' }"
             style="width: 100%"
         >
@@ -34,15 +34,13 @@
             <el-table-column prop="tokenValue" label="Token Value" sortable>
             <template #default="{ row }">
                 <div class="vllume-box">
-                <p>{{ row.tokenValue }}</p>
-                <span
-                    >0.9%<img src="https://dummyimage.com/8x12/52CCA3"
-                /></span>
+                <p>{{ row.total_value }}</p>
+                <span>0.9% <img src="https://dummyimage.com/8x12/52CCA3"/> </span>
                 </div>
             </template>
             </el-table-column>
             <el-table-column prop="owned" label="Owned" sortable />
-            <el-table-column prop="realizedPnL" label="Realized PnL" sortable/>
+            <el-table-column prop="realize_pnl" label="Realized PnL" sortable/>
             <el-table-column prop="label" label="Label" sortable />
         </el-table>
         </div>
@@ -50,10 +48,15 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
 import { Search } from '@element-plus/icons-vue';
+const props = defineProps({
+    whaleHolder: Array
+  }),
 
-const holdersType = ref('total'),
+  {whaleHolder} = toRefs(props),
+
+  holdersType = ref('total'),
   holdersTime = ref('lastHour'),
   holdersStr= ref(''),
   hourRange = [
@@ -77,43 +80,6 @@ const holdersType = ref('total'),
       value: 'last30Days',
       label: 'Last 30 Days'
     }
-  ],
-  tableData = [
-    {
-      address: '0x8955...f86b',
-      tokenValue: 1000,
-      owned: 200,
-      realizedPnL: 'Tom',
-      label: 12300
-    },
-    {
-      address: '0x8955...f86b',
-      tokenValue: 1000,
-      owned: 200,
-      realizedPnL: 'Tom',
-      label: 12300
-    },
-    {
-      address: '0x8955...f86b',
-      tokenValue: 1000,
-      owned: 200,
-      realizedPnL: 'Tom',
-      label: 12300
-    },
-    {
-      address: '0x8955...f86b',
-      tokenValue: 1000,
-      owned: 200,
-      realizedPnL: 'Tom',
-      label: 12300
-    },
-    {
-      address: '0x8955...f86b',
-      tokenValue: 1000,
-      owned: 200,
-      realizedPnL: 'Tom',
-      label: 12300
-    }
   ];
 
 </script>
@@ -129,7 +95,7 @@ const holdersType = ref('total'),
   .justify-between {
     justify-content: space-between;
   }
-  
+
   .text-right{
     text-align: right;
   }
@@ -158,7 +124,7 @@ const holdersType = ref('total'),
       font-size: 16px;
       line-height: 24px;
     }
-    
+
   }
   .search-select{
     :deep(.el-input){

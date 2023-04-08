@@ -2,7 +2,7 @@
     <div class="shadow-nft-banner-container">
         <div class="shadow-nft-banner-box">
             <div class="shadow-nft-banner-left-box">
-<!--                <img src="../../../assets/img/logo.png" alt="" class="logo">-->
+                <div class="logo">Best <span class="logo-nft">NFT</span> Aggregator</div>
                 <p class="logo-desc-text">最新最全NFT市场情报，独创NFT推荐指数，更快一步获取收益</p>
                 <div class="banner-nav-list">
                     <span>Support Public Chain</span>
@@ -33,7 +33,16 @@
             padding: 67.5px 0;
             .shadow-nft-banner-left-box{
                 .logo{
-                    width: 280px;
+                    font-weight: 700;
+                    font-size: 48px;
+                    line-height: 56px;
+                    color: #121214;
+                    .logo-nft{
+                        background-image: linear-gradient(270.2deg, #C25FFF 42.99%, #0BA7FF 84.13%);
+                        -webkit-background-clip: text;
+                        background-clip: text;
+                        color: transparent;
+                    }
                 }
                 .logo-desc-text{
                     font-style: normal;

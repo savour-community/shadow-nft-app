@@ -3,13 +3,13 @@
     <div class="shadow-nft-tabs-table-box">
       <el-tabs v-model="activeTab">
         <el-tab-pane label="Overview" name="overview">
-          <overview/>
+          <overview :collection-detail="collectionDetail"/>
         </el-tab-pane>
         <el-tab-pane label="NFTs" name="nfts">
-          <nfts/>
+          <nfts :whale-holder="collectionDetail.whale_holder"/>
         </el-tab-pane>
         <el-tab-pane label="Whale Holders" name="whaleHolders">
-          <whale-holders/>
+          <whale-holders :whale-holder="collectionDetail.whale_holder"/>
         </el-tab-pane>
       </el-tabs>
     </div>
@@ -20,9 +20,14 @@
 import Overview from './overview.vue';
 import Nfts from './nfts.vue';
 import whaleHolders from './whaleHolders.vue';
-import { ref } from 'vue';
+import { ref, toRefs } from 'vue';
+const props = defineProps({
+    collectionDetail: Object
+  }),
 
-const activeTab = ref('overview');
+  {collectionDetail} = toRefs(props),
+
+  activeTab = ref('overview');
 
 </script>
 

@@ -5,7 +5,7 @@
         <el-tab-pane label="Hot Collections" name="hotCollections">
           <!-- Hot Collections Table -->
           <el-table
-            :data="hotCollections"
+            :data="hotCollections.hot_collection_list"
             :default-sort="{ prop: 'date', order: 'descending' }"
             style="width: 100%"
           >
@@ -17,6 +17,7 @@
               width="330"
             >
               <template #default="{ row }">
+                <router-link :to="`/Collection?id=${row.id}`" class="nav-word">
                 <div class="shadow-score-box">
                   <img
                     class="shadow-score-logo"
@@ -40,6 +41,7 @@
                     <el-rate :model-value="3.5" disabled text-color="#fffff" />
                   </div>
                 </div>
+                </router-link>
               </template>
             </el-table-column>
             <el-table-column prop="volume" label="24H Vllume(USDT)" sortable>
@@ -52,17 +54,25 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="floor_price" label="Price" sortable />
-            <el-table-column prop="mint" label="Mint" sortable>
-              <div class="mint-chart" ref="mintChart"></div>
+            <el-table-column prop="floor_price" label="Floor Price / Best Offer" sortable >
+              <template #default="{ row }">
+                <div class="vllume-box">
+                  <p>{{ row.floor_price }} / {{row.best_offer}}</p>
+                </div>
+              </template>
             </el-table-column>
-            <el-table-column prop="suggestion" label="Suggestion" sortable />
+            <el-table-column prop="mint" label="Shadow Score (7d)" sortable>
+              <template #default="{ row }">
+                <Chart :data="row"/>
+              </template>
+            </el-table-column>
+            <el-table-column prop="holder" label="Unique Holders" sortable />
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="Live Mint" name="liveMint">
           <!-- Hot Collections Table -->
           <el-table
-            :data="tableData"
+            :data="hotCollections.live_mint_list"
             :default-sort="{ prop: 'date', order: 'descending' }"
             style="width: 100%"
           >
@@ -77,12 +87,12 @@
                 <div class="shadow-score-box">
                   <img
                     class="shadow-score-logo"
-                    :src="row.shadowScore.logo"
+                    :src="row.logo"
                     alt="logo"
                   />
                   <div class="shadow-score-info-box">
                     <p class="name">
-                      <span>{{ row.shadowScore.name }}</span
+                      <span>{{ row.name }}</span
                       ><span
                         ><img
                           src="https://dummyimage.com/12x12/eae0d0"
@@ -91,7 +101,7 @@
                     </p>
                     <p class="holder">
                       {{
-                        `holder:${row.shadowScore.holder} / whale address:${row.shadowScore.whaleAddress}`
+                        `holder:${row.holder} / whale address:${row.whaleAddress}`
                       }}
                     </p>
                     <el-rate :model-value="3.5" disabled text-color="#fffff" />
@@ -99,21 +109,20 @@
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="vllume" label="24H Vllume(USDT)" sortable>
+            <el-table-column prop="volume" label="Mint" sortable>
               <template #default="{ row }">
                 <div class="vllume-box">
-                  <p>{{ row.vllume }}</p>
+                  <p>{{ row.volume }}</p>
                   <span
-                    >0.9%<img src="https://dummyimage.com/8x12/52CCA3"
+                    >{{ row.mint_percent }}%<img src="https://dummyimage.com/8x12/52CCA3"
                   /></span>
                 </div>
               </template>
             </el-table-column>
-            <el-table-column prop="price" label="Price" sortable />
-            <el-table-column prop="mint" label="Mint" sortable>
-              <div class="mint-chart" ref="mintChart"></div>
-            </el-table-column>
-            <el-table-column prop="suggestion" label="Suggestion" sortable />
+            <el-table-column prop="total_mint" label="Total Minted" sortable />
+            <el-table-column prop="whale_holder" label="Unique Holders" sortable />
+            <el-table-column prop="holder" label="Holders" sortable />
+            <el-table-column prop="last_mint_time" label="Last Mint Time" sortable />
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="Hot NFT" name="hotNft">
@@ -183,10 +192,11 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance, defineProps } from 'vue';
 import { useRouter } from 'vue-router';
+import Chart from './chart.vue';
 const router = useRouter(),
   activeTab = ref('hotCollections'),
   mintChart = ref(null),
-  { hotCollections } = defineProps({
+  {hotCollections} = defineProps({
     hotCollections: Array
   }),
   { proxy } = getCurrentInstance(),
@@ -299,7 +309,6 @@ onMounted(() => {
   setTimeout(() => {
     initMyChart();
   }, 1000);
-  console.dir(mintChart, mintChart.value, '2222');
 });
 </script>
 

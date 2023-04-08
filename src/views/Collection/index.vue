@@ -2,32 +2,35 @@
   <default-layout>
     <div class="shadow-setting-container">
         <banner />
-        <div  class="main">
-          <basic-info />
-          <tabs-table />
+        <div class="main">
+          <basic-info :collectionDetail="collectionDetail"/>
+          <tabs-table :collectionDetail="collectionDetail"/>
         </div>
     </div>
   </default-layout>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 import DefaultLayout from '@/layout/defaultLayout.vue';
 import Banner from './components/banner.vue';
 import BasicInfo from './components/basicInfo.vue';
 import TabsTable from './components/tabsTable.vue';
 import { getHotCollectionDetail } from '@/assets/js/http.js';
+const collectionDetail = ref({}),
+  search = window.location.search,
+  params = new URLSearchParams(search);
 
 onMounted(async () => {
   const res = await getHotCollectionDetail({
     // eslint-disable-next-line
-    collection_id: 1,
+    collection_id: Number(params.get('id')),
     page: 1,
     // eslint-disable-next-line
     page_size: 10
   });
 
-  console.log(1111111, res);
+  collectionDetail.value = res;
 });
 </script>
 

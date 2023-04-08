@@ -7,58 +7,24 @@
       </div>
       <div class="whale-holer-table">
         <el-table
-          :data="tableData"
+          :data="whaleHolder"
           :default-sort="{ prop: 'date', order: 'descending' }"
           style="width: 100%"
         >
-          <el-table-column type="index" />
-          <el-table-column
-            prop="shadowScore"
-            label="Shadow Score"
-            sortable
-            width="330"
-          >
-            <template #default="{ row }">
-              <div class="shadow-score-box">
-                <img
-                  class="shadow-score-logo"
-                  :src="row.shadowScore.logo"
-                  alt="logo"
-                />
-                <div class="shadow-score-info-box">
-                  <p class="name">
-                    <span>{{ row.shadowScore.name }}</span
-                    ><span
-                      ><img
-                        src="https://dummyimage.com/12x12/eae0d0"
-                        alt="logo"
-                    /></span>
-                  </p>
-                  <p class="holder">
-                    {{
-                      `holder:${row.shadowScore.holder} / whale address:${row.shadowScore.whaleAddress}`
-                    }}
-                  </p>
-                  <el-rate :model-value="3.5" disabled text-color="#fffff" />
-                </div>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column prop="vllume" label="24H Vllume(USDT)" sortable>
-            <template #default="{ row }">
-              <div class="vllume-box">
-                <p>{{ row.vllume }}</p>
-                <span
-                  >0.9%<img src="https://dummyimage.com/8x12/52CCA3"
-                /></span>
-              </div>
-            </template>
-          </el-table-column>
-          <el-table-column prop="price" label="Price" sortable />
-          <el-table-column prop="mint" label="Mint" sortable>
-            <div class="mint-chart" ref="mintChart"></div>
-          </el-table-column>
-          <el-table-column prop="suggestion" label="Suggestion" sortable />
+        <el-table-column prop="address" label="Address"/>
+        <el-table-column prop="total_value" label="Token Value"  sortable />
+        <el-table-column prop="hold_nft_list" label="Hold NFTs" >
+          <template #default="{ row }">
+            <img  v-for="item in row.hold_nft_list" src="../../../assets/img/profile/2.png" :key="item" class="profile"/>
+          </template>
+        </el-table-column>
+        <el-table-column prop="hold_collection_list" label="Hold Collections" >
+          <template #default="{ row }">
+            <img v-for="item in row.hold_collection_list" src="../../../assets/img/profile/1.png" :alt="item" class="profile">
+          </template>
+        </el-table-column>
+        <el-table-column prop="realize_pnl" label="Realized PnL" />
+        <el-table-column prop="label" label="Label" />
         </el-table>
         <!-- view more -->
         <div class="view-more-box" @click="handleToViewMore">{{ `View More` }}</div>
@@ -68,127 +34,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 const router = useRouter(),
-  mintChart = ref(null),
-  { proxy } = getCurrentInstance(),
-  tableData = [
-    {
-      shadowScore: {
-        name: 'savour groups',
-        holder: 1000,
-        whaleAddress: 100,
-        logo: 'https://dummyimage.com/60x60/eae0d0',
-        mark: 4.5
-      },
-      vllume: 1000,
-      price: 200,
-      mint: 'Tom',
-      suggestion: 12300
-    },
-    {
-      shadowScore: {
-        name: 'savour groups',
-        holder: 1000,
-        whaleAddress: 100,
-        logo: 'https://dummyimage.com/60x60/eae0d0',
-        mark: 4.5
-      },
-      vllume: 1000,
-      price: 200,
-      mint: 'Tom',
-      suggestion: 12300
-    },
-    {
-      shadowScore: {
-        name: 'savour groups',
-        holder: 1000,
-        whaleAddress: 100,
-        logo: 'https://dummyimage.com/60x60/eae0d0',
-        mark: 4.5
-      },
-      vllume: 1000,
-      price: 200,
-      mint: 'Tom',
-      suggestion: 12300
-    },
-    {
-      shadowScore: {
-        name: 'savour groups',
-        holder: 1000,
-        whaleAddress: 100,
-        logo: 'https://dummyimage.com/60x60/eae0d0',
-        mark: 4.5
-      },
-      vllume: 1000,
-      price: 200,
-      mint: 'Tom',
-      suggestion: 12300
-    },
-    {
-      shadowScore: {
-        name: 'savour groups',
-        holder: 1000,
-        whaleAddress: 100,
-        logo: 'https://dummyimage.com/60x60/eae0d0',
-        mark: 4.5
-      },
-      vllume: 1000,
-      price: 200,
-      mint: 'Tom',
-      suggestion: 12300
-    }
-  ],
+  { whaleHolder } = defineProps({
+    whaleHolder: Array
+  }),
   handleToViewMore = () => {
     router.push({
       path: '/ViewMore'
     });
   };
 
-function initMyChart() {
-  const myChart = proxy.$echarts.init(mintChart.value),
-    option = {
-      xAxis: {
-        show: false,
-        type: 'category',
-        data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-      },
-      yAxis: {
-        type: 'value',
-        show: false
-      },
-      color: ['#20B26C'],
-      series: [
-        {
-          data: [150, 230, 224, 218, 135, 147, 260],
-          type: 'line',
-          symbol: 'none'
-        }
-      ],
-      grid: {
-        // 让图表占满容器
-        top: '0px',
-        left: '0px',
-        right: '0px',
-        bottom: '0px'
-      }
-    };
-
-  myChart.setOption(option);
-}
-
-onMounted(() => {
-  setTimeout(() => {
-    initMyChart();
-  }, 1000);
-  console.dir(mintChart, mintChart.value, '2222');
-});
+onMounted(() => {});
 </script>
 
 <style lang="scss" scoped>
 .whale-holder-container {
   width: 100%;
+  .profile{
+    border-radius: 50px;
+    width: 32px;
+    height: 32px;
+  }
   .whale-holder-box {
     width: 1360px;
     padding: 32px 0 40px;

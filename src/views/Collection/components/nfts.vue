@@ -34,29 +34,29 @@ import { ref } from 'vue';
 
 const nftsStr= ref(''),
   nftsType= ref(''),
-  cardList = ref(15);
-const options = [
-  {
-    value: 'Option1',
-    label: 'Option1'
-  },
-  {
-    value: 'Option2',
-    label: 'Option2'
-  },
-  {
-    value: 'Option3',
-    label: 'Option3'
-  },
-  {
-    value: 'Option4',
-    label: 'Option4'
-  },
-  {
-    value: 'Option5',
-    label: 'Option5'
-  }
-];
+  cardList = ref(15),
+  options = [
+    {
+      value: 'Option1',
+      label: 'Option1'
+    },
+    {
+      value: 'Option2',
+      label: 'Option2'
+    },
+    {
+      value: 'Option3',
+      label: 'Option3'
+    },
+    {
+      value: 'Option4',
+      label: 'Option4'
+    },
+    {
+      value: 'Option5',
+      label: 'Option5'
+    }
+  ];
 
 </script>
 
@@ -71,7 +71,7 @@ const options = [
   .justify-between {
     justify-content: space-between;
   }
-  
+
   .text-right{
     text-align: right;
   }
@@ -100,7 +100,7 @@ const options = [
       font-size: 16px;
       line-height: 24px;
     }
-    
+
   }
   .search-select{
     :deep(.el-input){

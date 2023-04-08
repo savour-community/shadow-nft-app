@@ -2,12 +2,12 @@
   <default-layout>
     <div class="shadow-nft-markets-container">
       <banner />
-      <total-list />
+      <total-list :listData="listData"/>
       <tabs-table
         :hotCollections="hotCollections"
       />
-      <whale-holder />
-      <what-shadow-score />
+      <whale-holder :whaleHolder="whaleHolderData"/>
+      <what-shadow-score :shadowScore="shadowScore"/>
     </div>
   </default-layout>
 </template>
@@ -21,22 +21,19 @@ import TabsTable from './components/tabsTable.vue';
 import WhaleHolder from './components/whaleHolder.vue';
 import WhatShadowScore from '@/components/whatShadowScore.vue';
 import { getIndex } from '@/assets/js/http.js';
-import { ElMessage } from 'element-plus';
 
-let hotCollections = ref([]);
+let listData = ref({}),
+  hotCollections = ref([]),
+  whaleHolderData = ref([]),
+  shadowScore = ref({});
 
 onMounted(async () => {
   const res = await getIndex();
 
-  console.log(res, res.code, 'getIndexgetIndexgetIndex');
-
-  if (res.code !== 2000) {
-    // eslint-disable-next-line new-cap
-    return ElMessage({
-      message: res.msg
-    });
-  }
-  hotCollections.value = res?.data?.hot_collection_list;
+  listData.value = res?.head_data;
+  hotCollections.value = res;
+  whaleHolderData.value = res?.whale_holder_list;
+  shadowScore.value = res?.shadow_score;
 });
 
 </script>
@@ -46,6 +43,7 @@ onMounted(async () => {
     width: 100%;
     min-height: 100vh;
     background-image: url('~@/assets/img/index_bg.png');
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: top center;
   }
